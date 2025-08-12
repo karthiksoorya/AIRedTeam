@@ -22,12 +22,20 @@ LOG_FILE = Path("logs/prompt_log.json")
 # LOG_FILE.parent.mkdir(exist_ok=True)
 API_KEY = os.getenv("API_KEY", "my-secret-key")
 
+class KeyRequest(BaseModel):
+    key: str # 
+
 class PromptRequest(BaseModel):
     prompt: str # safe, warn, block
 
 class PromptResponse(BaseModel):
     status: str 
     reason: str
+
+@app.post("/setkey")  # 👈 Internal
+async def set_key(request: KeyRequest):
+    os.environ["DYNAMIC_API_KEY_FROM_USER"] = request.key
+    return "Key set successfully"
 
 @app.post("/validate")  # 👈 Internal
 async def validate_internal(request: PromptRequest):

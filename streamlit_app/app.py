@@ -7,6 +7,7 @@ import requests
 
 LOG_FILE = "logs/prompt_log.json"
 API_ENDPOINT = "http://localhost:8000/validate"
+API_KEY_ENDPOINT = "http://localhost:8000/setkey"
 
 st.set_page_config(page_title="Prompt Validation Dashboard", layout="wide")
 st.title("🛡️ Prompt Validator + 📊 Analytics Dashboard")
@@ -15,18 +16,24 @@ st.title("🛡️ Prompt Validator + 📊 Analytics Dashboard")
 st.header("🔍 Prompt Input")
 
 with st.form("prompt_form"):
+    user_key = st.text_input("Set API Key")
     user_prompt = st.text_area("Enter your prompt")
     submitted = st.form_submit_button("Validate Prompt")
 
-if submitted and user_prompt.strip():
+if submitted and user_prompt.strip() and user_key.strip():
     try:
-        response = requests.post(API_ENDPOINT, json={"prompt": user_prompt})
+        response = requests.post(API_KEY_ENDPOINT, json={"key": user_key})
         if response.status_code == 200:
-            result = response.json()
-            st.success(f"✅ {result['status']}: {result['reason']}")
-            st.json(result)
+            response = requests.post(API_ENDPOINT, json={"prompt": user_prompt})
+            if response.status_code == 200:
+                result = response.json()
+                st.success(f"✅ {result['status']}: {result['reason']}")
+                st.json(result)
+            else:
+                st.error(f"❌ Error {response.status_code}: {response.text}")
         else:
             st.error(f"❌ Error {response.status_code}: {response.text}")
+    
     except Exception as e:
         st.error(f"🚨 Exception: {e}")
 

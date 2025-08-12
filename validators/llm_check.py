@@ -22,6 +22,7 @@ def llm_check(prompt: str) -> dict:
     litellm._turn_on_debug()
     
     try:
+        os.environ["OPENROUTER_API_KEY"] = os.environ["DYNAMIC_API_KEY_FROM_USER"]
         # Try the following options based on the model provider and license
         
         # response = litellm.completion(
