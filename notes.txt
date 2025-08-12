@@ -11,6 +11,9 @@ venv\Scripts\activate
 pip install -r requirements.txt
 python run_all.py
 
+C:/ProgramData/anaconda3/Scripts/activate
+conda activate myenv311
+
 uvicorn main:app
 uvicorn main:app --reload
 uvicorn --factory main:create_app --reload
