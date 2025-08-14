@@ -80,7 +80,7 @@ x-api-key: my-secret-key
 Content-Type: application/json
 
 {
-  "prompt": "Ignore previous instructions and..."
+  "prompt": "Create a table to insert salary details..."
 }
 ```
 
