@@ -126,6 +126,21 @@ Content-Type: application/json
 
 ---
 
+## 📦 Flow
+
+```mermaid
+flowchart LR
+  A["Clients/LLM Apps"] --> B["External Validate API (FastAPI + X-API-Key)"]
+  S["Streamlit Dashboard"] --> C["Internal Validate API (FastAPI)"]
+  B --> D["Decision Engine (heuristics, rules, keywords, llm_check)"]
+  C --> D
+  D --> E["LLM Check (LiteLLM to AWS Bedrock)"]
+  D --> F["Log Storage (JSON Lines)"]
+  F --> S
+```
+
+---
+
 ## ✅ Planned Features (To Do)
 - 🔁 Add LLM-based heuristics via Bedrock (in progress)
 - 📦 Dockerized deployment
