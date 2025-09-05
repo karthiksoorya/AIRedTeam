@@ -5,7 +5,7 @@ It is designed to serve as a **middleware guardrail** between users and LLMs —
 
 > ✅ Use it to validate, log, and analyze prompts before they reach production LLMs.
 
-> Streamlit version is available at - https://github.com/karthiksoorya/AIRedTeam
+> Streamlit version is available at - https://github.com/karthiksoorya/AIRedTeamStreamlit
 
 ---
 
